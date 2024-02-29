@@ -1,0 +1,54 @@
+import csv
+#Imports the csv module to enable parsing
+
+from statistics import median
+#Enables use of the median() function from the statistics module
+
+list_of_cash_balances_for_PV_lt_1000 = []
+list_of_cash_balances_for_PV_gtet_1000_lt_10000 = []
+list_of_cash_balances_for_PV_gtet_10000_lt_20000 = []
+list_of_cash_balances_for_PV_gtet_20000_lt_50000 = []
+list_of_cash_balances_for_PV_gtet_50000_lt_100000 = []
+list_of_cash_balances_for_PV_gtet_100000 = []
+
+with open(r"FCA Wealth Data Survey Q3 2023\Portfolio Data.csv") as portfolio_data_csv:
+
+    portfolio_data_reader = csv.DictReader(portfolio_data_csv)
+
+    for row in portfolio_data_reader:
+
+        if float(row.get(" Portfolio Value (ï¿½) 30/09/2023 ")) < 1000:
+
+            list_of_cash_balances_for_PV_lt_1000.append(float(row.get(" Cash Balance 30/09/2023 ")))
+        
+        elif float(row.get(" Portfolio Value (ï¿½) 30/09/2023 ")) >= 1000 and float(row.get(" Portfolio Value (ï¿½) 30/09/2023 ")) < 10000:
+
+            list_of_cash_balances_for_PV_gtet_1000_lt_10000.append(float(row.get(" Cash Balance 30/09/2023 ")))
+
+        elif float(row.get(" Portfolio Value (ï¿½) 30/09/2023 ")) >= 10000 and float(row.get(" Portfolio Value (ï¿½) 30/09/2023 ")) < 20000:
+
+            list_of_cash_balances_for_PV_gtet_10000_lt_20000.append(float(row.get(" Cash Balance 30/09/2023 ")))
+
+        elif float(row.get(" Portfolio Value (ï¿½) 30/09/2023 ")) >= 20000 and float(row.get(" Portfolio Value (ï¿½) 30/09/2023 ")) < 50000:
+
+            list_of_cash_balances_for_PV_gtet_20000_lt_50000.append(float(row.get(" Cash Balance 30/09/2023 ")))
+
+        elif float(row.get(" Portfolio Value (ï¿½) 30/09/2023 ")) >= 50000 and float(row.get(" Portfolio Value (ï¿½) 30/09/2023 ")) < 100000:
+
+            list_of_cash_balances_for_PV_gtet_50000_lt_100000.append(float(row.get(" Cash Balance 30/09/2023 ")))
+
+        else:
+
+            list_of_cash_balances_for_PV_gtet_100000.append(float(row.get(" Cash Balance 30/09/2023 ")))
+
+medians = []
+
+medians.append(median(list_of_cash_balances_for_PV_lt_1000))
+medians.append(median(list_of_cash_balances_for_PV_gtet_1000_lt_10000))
+medians.append(median(list_of_cash_balances_for_PV_gtet_10000_lt_20000))
+medians.append(median(list_of_cash_balances_for_PV_gtet_20000_lt_50000))
+medians.append(median(list_of_cash_balances_for_PV_gtet_50000_lt_100000))
+medians.append(median(list_of_cash_balances_for_PV_gtet_100000))
+
+print(medians)
+

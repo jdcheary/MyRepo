@@ -1,0 +1,69 @@
+#This script imports a csv file containing the daily mean transaction value for specific ranges of portfolio values
+#and calculates the median over a given period
+
+import csv
+#Imports the csv module to enable parsing
+
+from statistics import median
+#Enables use of the median() function from the statistics module
+
+list_of_dates = []
+list_of_weekday_nums = []
+list_of_daily_mean_trans_values_for_PV_lt_1000 = []
+list_of_daily_mean_trans_values_for_PV_gtet_1000_lt_10000 = []
+list_of_daily_mean_trans_values_for_PV_gtet_10000_lt_20000 = []
+list_of_daily_mean_trans_values_for_PV_gtet_20000_lt_50000 = []
+list_of_daily_mean_trans_values_for_PV_gtet_50000_lt_100000 = []
+list_of_daily_mean_trans_values_for_PV_gtet_100000 = []
+
+with open(r"FCA Wealth Data Survey Q3 2023\Daily Mean Value of Transactions by PV.csv") as daily_mean_value_by_PV_csv:
+
+    daily_mean_value_by_PV_reader = csv.DictReader(daily_mean_value_by_PV_csv)
+
+    for row in daily_mean_value_by_PV_reader:
+
+        list_of_dates.append(row["Date"])
+        list_of_weekday_nums.append(row["Weekday (#)"])
+        list_of_daily_mean_trans_values_for_PV_lt_1000.append(row["<1k"])
+        list_of_daily_mean_trans_values_for_PV_gtet_1000_lt_10000.append(row["1-10k"])
+        list_of_daily_mean_trans_values_for_PV_gtet_10000_lt_20000.append(row["10-20k"])
+        list_of_daily_mean_trans_values_for_PV_gtet_20000_lt_50000.append(row["20-50k"])
+        list_of_daily_mean_trans_values_for_PV_gtet_50000_lt_100000.append(row["50k-100k"])
+        list_of_daily_mean_trans_values_for_PV_gtet_100000.append(row["100k+"])
+
+new_list_of_daily_mean_trans_values_for_PV_lt_1000 = []
+new_list_of_daily_mean_trans_values_for_PV_gtet_1000_lt_10000 = []
+new_list_of_daily_mean_trans_values_for_PV_gtet_10000_lt_20000 = []
+new_list_of_daily_mean_trans_values_for_PV_gtet_20000_lt_50000 = []
+new_list_of_daily_mean_trans_values_for_PV_gtet_50000_lt_100000 = []
+new_list_of_daily_mean_trans_values_for_PV_gtet_100000 = []
+
+index = 0
+
+for weekday_num in list_of_weekday_nums:
+
+    if weekday_num == "7" or weekday_num == "1":
+
+        pass
+    
+    else:
+
+        new_list_of_daily_mean_trans_values_for_PV_lt_1000.append(float(list_of_daily_mean_trans_values_for_PV_lt_1000[index]))
+        new_list_of_daily_mean_trans_values_for_PV_gtet_1000_lt_10000.append(float(list_of_daily_mean_trans_values_for_PV_gtet_1000_lt_10000[index]))
+        new_list_of_daily_mean_trans_values_for_PV_gtet_10000_lt_20000.append(float(list_of_daily_mean_trans_values_for_PV_gtet_10000_lt_20000[index]))
+        new_list_of_daily_mean_trans_values_for_PV_gtet_20000_lt_50000.append(float(list_of_daily_mean_trans_values_for_PV_gtet_20000_lt_50000[index]))
+        new_list_of_daily_mean_trans_values_for_PV_gtet_50000_lt_100000.append(float(list_of_daily_mean_trans_values_for_PV_gtet_50000_lt_100000[index]))
+        new_list_of_daily_mean_trans_values_for_PV_gtet_100000.append(float(list_of_daily_mean_trans_values_for_PV_gtet_100000[index]))
+    
+    index += 1
+
+medians = []
+
+medians.append(median(new_list_of_daily_mean_trans_values_for_PV_lt_1000))
+medians.append(median(new_list_of_daily_mean_trans_values_for_PV_gtet_1000_lt_10000))
+medians.append(median(new_list_of_daily_mean_trans_values_for_PV_gtet_10000_lt_20000))
+medians.append(median(new_list_of_daily_mean_trans_values_for_PV_gtet_20000_lt_50000))
+medians.append(median(new_list_of_daily_mean_trans_values_for_PV_gtet_50000_lt_100000))
+medians.append(median(new_list_of_daily_mean_trans_values_for_PV_gtet_100000))
+
+print(medians)
